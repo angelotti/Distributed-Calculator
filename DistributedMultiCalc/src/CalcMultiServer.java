@@ -26,7 +26,7 @@ public class CalcMultiServer {
 		
 		try(ServerSocket serverSocket = new ServerSocket(portNumber)) {
 			System.out.println("Server started");
-			while(listening){
+			while(listening && cms.c < 2000){
 				cms.assignProblem(serverSocket, threadNumber);
 				threadNumber++;
 				System.out.println("Thread number: " + threadNumber);
@@ -71,7 +71,7 @@ public class CalcMultiServer {
 	}
 	
 	public synchronized void increment() {
-        c++;
+			c++;
     }
 
 }
