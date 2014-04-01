@@ -20,5 +20,9 @@ public class Problem {
 	public void setResult(double r) {
 		result = r;
 	}
+	
+	public double getResult() {
+		return result;
+	}
 
 }
