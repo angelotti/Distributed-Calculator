@@ -9,7 +9,7 @@ public class CalcMultiServer {
 	private double testResult = 0;
 	private int c = 0;
 	
-	final int SIZE = 1000;
+	final int SIZE = 30;
 	private boolean listening = true;
 
 	public static void main(String[] args) throws IOException{
@@ -49,6 +49,9 @@ public class CalcMultiServer {
 	    for (int idx = 0; idx < SIZE; ++idx){
 	      double randomA = randomGenerator.nextInt(10);
 	      double randomB = randomGenerator.nextInt(10);
+	      while(randomB==0){
+	    	  randomB = randomGenerator.nextInt(10);
+	      }
 	      int randomOperator = randomGenerator.nextInt(4);
 	      
 	      if(randomOperator == 0){
@@ -92,6 +95,8 @@ public class CalcMultiServer {
 		
 		if(testResult == sum){
 			System.out.println(testResult+" = "+sum+"\nAll calculations done correctly!");
+		} else {
+			System.out.println("testResult = "+testResult+"but sum = "+sum);
 		}
 	}
 	public void setListening(boolean l){

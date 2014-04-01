@@ -38,16 +38,26 @@ public class CalcClient {
 					+ "Press any key to continue..\n ");
 			
 			
-			fromServer = in.readLine();
+			fromServer = "";
 			System.out.println(""+fromServer);
-			while (fromServer != null) /*&& t != 0*/ {
-				System.out.println("i'm in"+fromServer);
-				cp.processInput(fromServer);
-				out.println(""+cp.getResult()); //send result to server
-				counter++;
-				//t--;
+			while (fromServer != null && t > 0) {
 				fromServer = in.readLine();
-				//if(t == 0) { t = cp.terminate(counter); }
+				System.out.println(counter+" : "+fromServer);
+				cp.processInput(fromServer);
+				//out.println(""+cp.getResult()); //send result to server
+				//counter++;
+				t--;
+				
+				if(t == 0 ) { 	
+					counter++;
+					t = cp.terminate(counter); 
+						//an t==0 o xrhsths den thelei na sunexisei
+					out.println(cp.getResult()+" "+t);
+					
+				} else {
+					counter++;
+					out.println(""+cp.getResult()); 
+				}
 			}
 			System.out.println(""+fromServer);
 			if(fromServer == null){

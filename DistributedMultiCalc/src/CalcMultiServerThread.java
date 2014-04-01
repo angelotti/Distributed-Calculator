@@ -10,7 +10,7 @@ public class CalcMultiServerThread extends Thread{
 	private Problem p;
 	private CalcMultiServer cms;
 	private int index = -1;
-	
+	private String[] expression;
 	
 	public CalcMultiServerThread(Socket socket, int n, CalcMultiServer cms){
 		super("CalcMultiServerThread, Thread "+n);
@@ -26,26 +26,34 @@ public class CalcMultiServerThread extends Thread{
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     								socket.getInputStream()));
         )  {
-        	if(cms.getC()==cms.SIZE){
-        		System.out.println("There no problems");
-        		
-        	} else {
-        		String fromUser = "";
-        		while(cms.getC()+1 < cms.SIZE) {
+        	String fromUser = "";
+        	int t = 1;
+        	while(t > 0) {
+        		if(cms.getC()== cms.SIZE) {
+        			System.out.println("\nTHE END");
+        			cms.testResult();
+        			break;
+        		} else {
         			assignProblem();
         			out.println(p.getExpression());
         			System.out.println("i'm in "+p.getExpression());
         			fromUser = in.readLine();
         			System.out.println(fromUser);
-        			p.setResult(Double.parseDouble(fromUser));
         			
-        			sleep(0);
+        			expression = fromUser.split(" ");
+        			if(expression.length == 1) {
+        				p.setResult(Double.parseDouble(expression[0]));
+        				System.out.println(""+p.getResult());
+        				//t-- ;
+        			} else {
+        				p.setResult(Double.parseDouble(expression[0]));
+        				t = Integer.parseInt(expression[1]);
+        			}
         		}
-        		cms.testResult();
-
         	}
-			//socket.close();
-        } catch (IOException | InterruptedException e) {
+        	
+			socket.close();
+        } catch (IOException e) {
         	e.printStackTrace();
         } 
     }

@@ -25,18 +25,13 @@ public class CalcProtocol {
 		}
 	}
 	public String processInput(String inputLine){
-		expression = inputLine.split(" ");
-		error = null;
-		/*if(expression.length != 3){
-			error = "Wrong number of arguments. We need 1 operator and 2 values!" ;
-		}
-		else if(!(expression[0].equals("+") ||  expression[0].equals("-") || 
-				expression[0].equals("*") ||  expression[0].equals("/"))) {
-			error = "Expected an operator in position 0" ;
-		}
-		else{*/
+		if(inputLine == null){
+			return null;
+		} else {
+			expression = inputLine.split(" ");
+		
 			try{
-				 System.out.println(expression[1]+expression[0]+expression[2]);
+				 //System.out.println(expression[1]+expression[0]+expression[2]);
 				 a = Double.parseDouble(expression[1]);
 				 b = Double.parseDouble(expression[2]);
 				 result = calculate();				 
@@ -47,6 +42,7 @@ public class CalcProtocol {
 			finally{
 				return error;
 			}
+		}
 			
 		//}
 		//return error;
